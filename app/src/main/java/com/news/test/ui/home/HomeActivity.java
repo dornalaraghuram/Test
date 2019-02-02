@@ -6,23 +6,24 @@
  *
  */
 
-package com.news.test.ui;
+package com.news.test.ui.home;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-import com.news.test.R;
+import com.news.test.ui.base.BaseActivity;
 
 import dagger.android.AndroidInjection;
 
-public class HomeActivity extends AppCompatActivity {
+/**
+ * Main application launcher screen
+ */
+public class HomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidInjection.inject(this);
-        setContentView(R.layout.activity_home);
-
+        getAppNavigator().launchHomeScreen();
     }
 
 }

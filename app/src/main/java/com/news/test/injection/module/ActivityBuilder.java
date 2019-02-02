@@ -8,7 +8,9 @@
 
 package com.news.test.injection.module;
 
-import com.news.test.ui.HomeActivity;
+import com.news.test.injection.provider.HomeFragmentProvider;
+import com.news.test.injection.scope.ActivityScope;
+import com.news.test.ui.home.HomeActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -16,7 +18,8 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuilder {
 
-    @ContributesAndroidInjector(modules = {HomeActivityModule.class})
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {HomeActivityModule.class, HomeFragmentProvider.class})
     abstract HomeActivity bindHomeActivity();
 
 

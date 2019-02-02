@@ -78,6 +78,10 @@ dependencies {
     implementation supportDependencies.constraint_layout
     implementation supportDependencies.recyclerview
 
+    //butterknife
+    implementation butterKnifeDependencies.butterknife
+    annotationProcessor butterKnifeDependencies.butterknifeAnnotationProcessor
+
     //Dagger
     implementation daggerDependencies.dagger
     annotationProcessor daggerDependencies.daggerProcessor

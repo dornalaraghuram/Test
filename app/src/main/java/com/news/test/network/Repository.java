@@ -8,13 +8,16 @@
 
 package com.news.test.network;
 
+import com.news.test.injection.scope.ApplicationScope;
 import com.news.test.network.model.Facts;
+import com.news.test.util.Config;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
 
+@ApplicationScope
 public class Repository implements DataSource {
 
     private final ApiService mApiService;
@@ -26,6 +29,6 @@ public class Repository implements DataSource {
 
     @Override
     public Observable<Facts> getFacts() {
-        return mApiService.getFacts();
+        return mApiService.getFacts(Config.URL_FACTS);
     }
 }

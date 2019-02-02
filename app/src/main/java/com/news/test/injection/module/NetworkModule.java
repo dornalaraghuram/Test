@@ -17,16 +17,17 @@ import com.news.test.network.ApiService;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetworkModule {
 
     @Provides
+    @ApplicationScope
     public ApiService provideApiService(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
     }
@@ -36,33 +37,36 @@ public class NetworkModule {
     public Retrofit provideRetrofit(OkHttpClient okHttpClient, GsonConverterFactory gsonConverterFactory, Gson gson) {
         return new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json")
+                .baseUrl("https://dl.dropboxusercontent.com/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(gsonConverterFactory)
                 .build();
     }
 
     @Provides
+    @ApplicationScope
     public Gson provideGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         return gsonBuilder.create();
     }
 
     @Provides
+    @ApplicationScope
     public GsonConverterFactory provideGsonConverterFactory(Gson gson) {
         return GsonConverterFactory.create(gson);
     }
 
     @Provides
-    public OkHttpClient provideOkHttpClient(Cache cache, HttpLoggingInterceptor httpLoggingInterceptor) {
+    @ApplicationScope
+    public OkHttpClient provideOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor) {
         return new OkHttpClient()
                 .newBuilder()
-                .cache(cache)
                 .addInterceptor(httpLoggingInterceptor)
                 .build();
     }
 
-
     @Provides
+    @ApplicationScope
     public HttpLoggingInterceptor provideHttpLoggingInterceptor() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
@@ -73,4 +77,5 @@ public class NetworkModule {
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return httpLoggingInterceptor;
     }
+
 }

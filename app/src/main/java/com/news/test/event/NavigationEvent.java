@@ -8,6 +8,10 @@
 
 package com.news.test.event;
 
+/**To Navigate through the application by passing event with holding the information
+ *
+ * @param <T>
+ */
 public class NavigationEvent<T> {
 
     public static final String EVENT_LAUNCH = "event_launch";

@@ -13,6 +13,7 @@ import android.app.Application;
 import com.news.test.application.TestApplication;
 import com.news.test.injection.module.ActivityBuilder;
 import com.news.test.injection.module.AppModule;
+import com.news.test.injection.scope.ApplicationScope;
 
 import javax.inject.Singleton;
 
@@ -20,7 +21,7 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;
 
-@Singleton
+@ApplicationScope
 @Component(modules = {AndroidSupportInjectionModule.class,
         AppModule.class,
         ActivityBuilder.class})

@@ -11,6 +11,7 @@ ext {
     playServicesVersion = '11.6.2'
     recyclerVersion = '27.0.1'
     constraintLayoutVersion = '1.1.0-beta5'
+    butterknifeVersion = '8.7.0'
     okHttpVersion = '3.6.0'
     daggerVersion = '2.13'
     retrofitVersion = '2.2.0'
@@ -23,6 +24,7 @@ ext {
     //Packages
     supportPackage = 'com.android.support'
     constraintLayoutPackage = 'com.android.support.constraint'
+    butterKnifePackage = 'com.jakewharton'
     daggerPackage = 'com.google.dagger'
     rxjavaPackage = 'io.reactivex.rxjava2'
     okhttpPackage = 'com.squareup.okhttp3'
@@ -47,6 +49,11 @@ ext {
             daggerProcessor       : buildDependency(daggerPackage, 'dagger-compiler', daggerVersion),
             daggerAndroidProcessor: buildDependency(daggerPackage, 'dagger-android-processor', daggerVersion),
             daggerSupport         : buildDependency(daggerPackage, 'dagger-android-support', daggerVersion),
+    ]
+
+    butterKnifeDependencies = [
+            butterknife                   : buildDependency(butterKnifePackage, 'butterknife', butterknifeVersion),
+            butterknifeAnnotationProcessor: buildDependency(butterKnifePackage, 'butterknife-compiler', butterknifeVersion)
     ]
 
     rxjavaDependencies = [

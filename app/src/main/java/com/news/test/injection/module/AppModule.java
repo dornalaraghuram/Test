@@ -11,6 +11,9 @@ package com.news.test.injection.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.news.test.injection.scope.ApplicationScope;
+import com.news.test.network.DataSource;
+import com.news.test.network.Repository;
 import com.news.test.rxbus.RxBus;
 import com.news.test.rxbus.RxBusImpl;
 
@@ -26,6 +29,9 @@ public abstract class AppModule {
     @Binds
     abstract RxBus provideRxBus(RxBusImpl rxBus);
 
+
+    @Binds
+    abstract DataSource provideDataSource(Repository repository);
 
 
 }

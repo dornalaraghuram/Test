@@ -10,8 +10,11 @@ package com.news.test.application;
 
 import android.app.Activity;
 import android.app.Application;
+
 import com.news.test.injection.component.DaggerAppComponent;
+
 import javax.inject.Inject;
+
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 
@@ -20,6 +23,12 @@ public class TestApplication extends Application implements HasActivityInjector 
 
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+
+    private static TestApplication applicationInstance;
+
+    public static TestApplication getApplicationInstance() {
+        return applicationInstance;
+    }
 
     @Override
     public void onCreate() {
