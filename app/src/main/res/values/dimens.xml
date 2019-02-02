@@ -1,0 +1,11 @@
+<!--
+  ~ /*
+  ~  *  Copyright © 2019,Company name.
+  ~  *  Written under additional information.
+  ~  */
+  ~
+  -->
+
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>

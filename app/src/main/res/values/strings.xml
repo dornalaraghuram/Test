@@ -1,0 +1,14 @@
+<!--
+  ~ /*
+  ~  *  Copyright © 2019,Company name.
+  ~  *  Written under additional information.
+  ~  */
+  ~
+  -->
+
+<resources>
+    <string name="app_name">Test</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="hello_world">hello world</string>
+    <string name="hello_home_fragment">Hello HOME Fragment</string>
+</resources>
