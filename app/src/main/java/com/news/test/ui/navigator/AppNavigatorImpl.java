@@ -9,6 +9,8 @@
 package com.news.test.ui.navigator;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -17,9 +19,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.news.test.R;
 import com.news.test.constants.BundleConstants;
 import com.news.test.injection.scope.ActivityScope;
 import com.news.test.injection.scope.ContainerId;
+import com.news.test.network.ErrorHandler;
+import com.news.test.network.model.ErrorResponse;
 import com.news.test.ui.base.BaseActivity;
 import com.news.test.ui.home.HomeFragment;
 
@@ -52,6 +57,27 @@ public class AppNavigatorImpl implements AppNavigator {
         replaceFragment(mContainerId, HomeFragment.getInstance());
     }
 
+    @Override
+    public void showErrorResponseDialog(Throwable e) {
+        String errorMessage;
+        if(e instanceof ErrorResponse) {
+            errorMessage = mActivity.getResources().getString(ErrorHandler.getErrorMessageByCodes(((ErrorResponse) e).getStatusCode()));
+        } else {
+            errorMessage = e.getMessage();
+        }
+        showDialog(errorMessage);
+    }
+
+    private void showDialog(String message) {
+        createDialog(message).show();
+    }
+
+    private Dialog createDialog(String message) {
+        return new AlertDialog.Builder(mActivity).setTitle(R.string.app_name)
+                .setMessage(message)
+                .setPositiveButton(R.string.ok, null).create();
+    }
+
     private void startActivity(@NonNull Class<? extends Activity> activityClass, Bundle args, Integer requestCode) {
         Intent intent = new Intent();
         intent.putExtra(BundleConstants.EXTRA_ARG, args);
@@ -73,9 +99,6 @@ public class AppNavigatorImpl implements AppNavigator {
     private final void replaceFragment(@IdRes int containerId, Fragment fragment) {
         replaceFragmentInternal(mActivity.getSupportFragmentManager(), containerId, fragment, null, null, false, null);
     }
-
-
-
 
     private final void replaceFragmentInternal(FragmentManager fm, @IdRes int containerId, Fragment fragment, String fragmentTag, Bundle args, boolean addToBackstack, String backstackTag) {
         if (mActivity.isFinishing()) return;

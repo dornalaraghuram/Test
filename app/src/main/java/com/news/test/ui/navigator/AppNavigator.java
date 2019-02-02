@@ -15,4 +15,6 @@ public interface AppNavigator {
     void loadFragment(int containerId, Fragment fragment);
 
     void launchHomeScreen();
+
+    void showErrorResponseDialog(Throwable e);
 }

@@ -15,6 +15,7 @@ import com.news.test.network.DataSource;
 import com.news.test.network.model.Facts;
 import com.news.test.rxbus.RxBus;
 import com.news.test.ui.base.BaseViewModel;
+import com.news.test.ui.navigator.AppNavigator;
 import com.news.test.util.Logger;
 
 import javax.inject.Inject;
@@ -27,13 +28,13 @@ public class HomeViewModel extends BaseViewModel {
 
     private static final String TAG = HomeViewModel.class.getSimpleName();
     private final DataSource mDataSource;
-    private final RxBus mRxBus;
 
     @Inject
-    public HomeViewModel(@NonNull Application application, DataSource dataSource, RxBus rxBus) {
+    public HomeViewModel(@NonNull Application application, DataSource dataSource, RxBus rxBus, AppNavigator navigator) {
         super(application);
         mDataSource = dataSource;
         mRxBus = rxBus;
+        mNavigator = navigator;
     }
 
     public void loadFactsData() {
@@ -51,6 +52,7 @@ public class HomeViewModel extends BaseViewModel {
                     @Override
                     public void onError(Throwable e) {
                         Logger.i(TAG, "onfailure "+e.getMessage());
+                        getNavigator().showErrorResponseDialog(e);
                     }
 
                 })
