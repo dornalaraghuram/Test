@@ -7,5 +7,15 @@
   -->
 
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="app_margin">8dp</dimen>
+    <dimen name="message_right_margin">10dp</dimen>
+    <dimen name="corner_radius">5dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+
+    <dimen name="empty_margin">0dp</dimen>
+
+
+
+    <!-- Text sizes-->
+    <dimen name="header_text_size">16sp</dimen>
 </resources>

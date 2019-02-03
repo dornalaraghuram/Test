@@ -42,6 +42,8 @@ public abstract class BaseFragment extends Fragment implements RxBusCallback {
 
     protected abstract int getFragmentLayoutId();
 
+    public abstract BaseViewModel getViewModel();
+
 
     /**To handle the navigation events
      * @param event

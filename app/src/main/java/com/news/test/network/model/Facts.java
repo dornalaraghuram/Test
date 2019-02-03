@@ -21,4 +21,12 @@ public class Facts {
     @SerializedName("title")
     @Expose
     private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public List<Rows> getRows() {
+        return rows;
+    }
 }

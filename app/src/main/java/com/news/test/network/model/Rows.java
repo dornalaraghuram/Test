@@ -22,4 +22,16 @@ public class Rows {
     @SerializedName("imageHref")
     @Expose
     private String imageHref;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImageHref() {
+        return imageHref;
+    }
 }

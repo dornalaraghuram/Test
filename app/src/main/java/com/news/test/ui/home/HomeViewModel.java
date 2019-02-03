@@ -9,44 +9,53 @@
 package com.news.test.ui.home;
 
 import android.app.Application;
+import android.arch.lifecycle.MutableLiveData;
+import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import com.news.test.network.DataSource;
 import com.news.test.network.model.Facts;
 import com.news.test.rxbus.RxBus;
 import com.news.test.ui.base.BaseViewModel;
+import com.news.test.ui.model.FactsData;
 import com.news.test.ui.navigator.AppNavigator;
 import com.news.test.util.Logger;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class HomeViewModel extends BaseViewModel {
 
     private static final String TAG = HomeViewModel.class.getSimpleName();
-    private final DataSource mDataSource;
+
+    private MutableLiveData<FactsData> mFactsData = new MutableLiveData<>();
+
 
     @Inject
-    public HomeViewModel(@NonNull Application application, DataSource dataSource, RxBus rxBus, AppNavigator navigator) {
+    public HomeViewModel(@NonNull Application application) {
         super(application);
-        mDataSource = dataSource;
-        mRxBus = rxBus;
-        mNavigator = navigator;
     }
 
     public void loadFactsData() {
-        getDisposable().add(mDataSource.getFacts()
+        getDisposable().add(getDataSource().getFacts()
+                .flatMap((Function<Facts, ObservableSource<FactsData>>) facts -> Observable.just(new FactsData(facts)))
                 .firstOrError()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<Facts>() {
+                .subscribeWith(new DisposableSingleObserver<FactsData>() {
 
                     @Override
-                    public void onSuccess(Facts facts) {
+                    public void onSuccess(FactsData facts) {
                         Logger.i(TAG, "onsuccess");
+                        if(facts != null) {
+                            setFactsData(facts);
+                        }
                     }
 
                     @Override
@@ -58,4 +67,17 @@ public class HomeViewModel extends BaseViewModel {
                 })
         );
     }
+
+    public MutableLiveData<FactsData> getFactsData() {
+        return mFactsData;
+    }
+
+    public void setFactsData(FactsData facts) {
+        mFactsData.setValue(facts);
+    }
+
+    public void clearFactsData() {
+        mFactsData.setValue(null);
+    }
+
 }

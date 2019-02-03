@@ -10,6 +10,7 @@ ext {
     supportLibVersion = '27.0.1'
     playServicesVersion = '11.6.2'
     recyclerVersion = '27.0.1'
+    cardViewVersion = '27.0.1'
     constraintLayoutVersion = '1.1.0-beta5'
     butterknifeVersion = '8.7.0'
     okHttpVersion = '3.6.0'
@@ -37,9 +38,9 @@ ext {
             design           : buildDependency(supportPackage, 'design', supportLibVersion),
             support          : buildDependency(supportPackage, 'support-v4', supportLibVersion),
             recyclerview     : buildDependency(supportPackage, 'recyclerview-v7', recyclerVersion),
+            cardview         : buildDependency(supportPackage, 'cardview-v7', cardViewVersion),
             constraint_layout: buildDependency(constraintLayoutPackage, 'constraint-layout', constraintLayoutVersion),
             mediarouter      : buildDependency(supportPackage, 'mediarouter-v7', supportLibVersion)
-
     ]
 
 

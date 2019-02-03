@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /*
+  ~  *  Copyright © 2019,Company name.
+  ~  *  Written under additional information.
+  ~  */
+  ~
+  -->
+
+<resources>
+
+
+    <!-- Recycler Types -->
+    <integer name="rv_type_home">0</integer>
+
+</resources>

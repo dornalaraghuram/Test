@@ -14,6 +14,7 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.support.annotation.NonNull;
 
+import com.news.test.network.DataSource;
 import com.news.test.rxbus.RxBus;
 import com.news.test.ui.navigator.AppNavigator;
 
@@ -27,6 +28,7 @@ public class BaseViewModel extends AndroidViewModel {
     private final CompositeDisposable mDisposable;
     protected AppNavigator mNavigator;
     protected RxBus mRxBus;
+    protected DataSource mDataSource;
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
@@ -43,6 +45,22 @@ public class BaseViewModel extends AndroidViewModel {
 
     protected RxBus getRxBus() {
         return mRxBus;
+    }
+
+    public void setRxBus(RxBus rxBus) {
+        mRxBus = rxBus;
+    }
+
+    public void setAppNavigator(AppNavigator navigator) {
+        mNavigator = navigator;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        mDataSource = dataSource;
+    }
+
+    protected DataSource getDataSource() {
+        return mDataSource;
     }
 
 
