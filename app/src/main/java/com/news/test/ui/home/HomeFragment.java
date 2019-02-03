@@ -13,6 +13,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -64,8 +65,24 @@ public class HomeFragment extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater, getFragmentLayoutId(), container, false);
         requestApiData();
         subscribeLiveData();
-        initRecyclerView();
+        initViews();
         return binding.getRoot();
+    }
+
+    /**
+     * initializing the recycler & swipe to refresh views
+     */
+    private void initViews() {
+        mAdapter = new HomeRowsAdapter();
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        binding.recyclerViewHome.setAdapter(mAdapter);
+        binding.recyclerViewHome.setLayoutManager(manager);
+
+        binding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+        binding.refreshLayout.setOnRefreshListener(() -> {
+            binding.refreshLayout.setRefreshing(true);
+            getViewModel().loadFactsData();
+        });
     }
 
     private void requestApiData() {
@@ -73,16 +90,6 @@ public class HomeFragment extends BaseFragment {
         getViewModel().setDataSource(mDataSource);
         getViewModel().setRxBus(mRxBus);
         getViewModel().loadFactsData();
-    }
-
-    /**
-     * initializing the recycler view
-     */
-    private void initRecyclerView() {
-        mAdapter = new HomeRowsAdapter();
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        binding.recyclerViewHome.setAdapter(mAdapter);
-        binding.recyclerViewHome.setLayoutManager(manager);
     }
 
     @Override
@@ -97,14 +104,22 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void subscribeLiveData() {
+        getViewModel().clearFactsData();
         getViewModel().getFactsData().observe(this, this::updateUI);
     }
 
     private void updateUI(FactsData factsData) {
+        updateSwipeToRefreshState();
         if(factsData != null) {
             List<RowData> rows = factsData.getRowsData();
             setTitle(factsData.getTitle());
             mAdapter.updateRowsData(rows);
+        }
+    }
+
+    private void updateSwipeToRefreshState() {
+        if(binding.refreshLayout.isRefreshing()) {
+            binding.refreshLayout.setRefreshing(false);
         }
     }
 
