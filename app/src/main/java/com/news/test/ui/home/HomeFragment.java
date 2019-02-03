@@ -60,20 +60,35 @@ public class HomeFragment extends BaseFragment {
         return fragment;
     }
 
+    public HomeFragment() {
+//        setRetainInstance(true);
+    }
+
+
+
     @Override
     protected View inflateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, getFragmentLayoutId(), container, false);
-        requestApiData();
-        subscribeLiveData();
-        initViews();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState == null) {
+            requestApiData();
+        }
+        initViews();
+        subscribeLiveData();
     }
 
     /**
      * initializing the recycler & swipe to refresh views
      */
     private void initViews() {
-        mAdapter = new HomeRowsAdapter();
+        if(mAdapter == null) {
+            mAdapter = new HomeRowsAdapter();
+        }
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerViewHome.setAdapter(mAdapter);
         binding.recyclerViewHome.setLayoutManager(manager);
@@ -104,7 +119,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void subscribeLiveData() {
-        getViewModel().clearFactsData();
+//        getViewModel().clearFactsData();
         getViewModel().getFactsData().observe(this, this::updateUI);
     }
 

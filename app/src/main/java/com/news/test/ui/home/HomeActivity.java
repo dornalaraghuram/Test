@@ -22,7 +22,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AndroidInjection.inject(this);
+        if(savedInstanceState == null)
         getAppNavigator().launchHomeScreen();
     }
 
