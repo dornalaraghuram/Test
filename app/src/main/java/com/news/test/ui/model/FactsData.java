@@ -34,6 +34,7 @@ public class FactsData {
             List<Rows> rows = facts.getRows();
             if(rows != null && rows.size() > 0) {
                 for(Rows row : rows) {
+                    if(!row.isValid()) continue;
                     RowData rowData = new RowData(row);
                     rowsData.add(rowData);
                 }

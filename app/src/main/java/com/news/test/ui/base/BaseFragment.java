@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,6 @@ public abstract class BaseFragment extends Fragment implements RxBusCallback {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        readFromBundle();
         super.onCreate(savedInstanceState);
     }
 
@@ -98,8 +98,10 @@ public abstract class BaseFragment extends Fragment implements RxBusCallback {
     }
 
 
-    protected void readFromBundle() {
-
+    protected void setTitle(String title) {
+        if(getActivity() != null && !TextUtils.isEmpty(title)) {
+            getActivity().setTitle(title);
+        }
     }
 
 }

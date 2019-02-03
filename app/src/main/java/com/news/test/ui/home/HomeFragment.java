@@ -103,6 +103,7 @@ public class HomeFragment extends BaseFragment {
     private void updateUI(FactsData factsData) {
         if(factsData != null) {
             List<RowData> rows = factsData.getRowsData();
+            setTitle(factsData.getTitle());
             mAdapter.updateRowsData(rows);
         }
     }

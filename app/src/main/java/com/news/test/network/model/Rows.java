@@ -8,6 +8,8 @@
 
 package com.news.test.network.model;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -33,5 +35,9 @@ public class Rows {
 
     public String getImageHref() {
         return imageHref;
+    }
+
+    public boolean isValid() {
+        return !TextUtils.isEmpty(title) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(imageHref);
     }
 }
