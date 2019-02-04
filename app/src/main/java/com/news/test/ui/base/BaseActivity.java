@@ -9,6 +9,8 @@
 package com.news.test.ui.base;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.news.test.R;
+import com.news.test.application.NetworkStatusReceiver;
 import com.news.test.ui.navigator.AppNavigator;
 
 import javax.inject.Inject;
@@ -45,6 +48,8 @@ public abstract class BaseActivity extends AppCompatActivity implements HasSuppo
 
     @BindView(R.id.progress_bar)
     View mProgressBar;
+
+    private NetworkStatusReceiver mNetworkStatusReceiver;
 
 
     @Override
@@ -109,6 +114,38 @@ public abstract class BaseActivity extends AppCompatActivity implements HasSuppo
             mUnBinder.unbind();
         }
         super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerNetworkStatusReceiver();
+    }
+
+    private void registerNetworkStatusReceiver(){
+        mNetworkStatusReceiver = new NetworkStatusReceiver();
+        mNetworkStatusReceiver.setConnectionCallback(new NetworkStatusReceiver.ConnectionCallback() {
+            @Override
+            public void onConnected() {
+                getAppNavigator().dismissSnackMessage();
+            }
+
+            @Override
+            public void onDisConnected() {
+                getAppNavigator().showNoNetworkSnackMessage();
+            }
+        });
+        registerReceiver(mNetworkStatusReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    private void unRegisterNetworkStatusReceiver(){
+        unregisterReceiver(mNetworkStatusReceiver);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unRegisterNetworkStatusReceiver();
     }
 
 

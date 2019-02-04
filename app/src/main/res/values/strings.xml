@@ -17,4 +17,5 @@
     <string name="err_bad_request">Please check your network connection once again.</string>
     <string name="err_internal_server">Internal server error, Please try again later.</string>
     <string name="ok">ok</string>
+    <string name="no_network_msg">Check your network connection and pull to refresh.</string>
 </resources>

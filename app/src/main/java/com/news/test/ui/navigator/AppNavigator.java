@@ -17,4 +17,12 @@ public interface AppNavigator {
     void launchHomeScreen();
 
     void showErrorResponseDialog(Throwable e);
+
+    void showProgressBar();
+
+    void hideProgressBar();
+
+    void showNoNetworkSnackMessage();
+
+    void dismissSnackMessage();
 }

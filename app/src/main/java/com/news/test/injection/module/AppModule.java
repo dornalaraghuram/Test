@@ -29,9 +29,7 @@ public abstract class AppModule {
     @Binds
     abstract RxBus provideRxBus(RxBusImpl rxBus);
 
-
     @Binds
     abstract DataSource provideDataSource(Repository repository);
-
 
 }

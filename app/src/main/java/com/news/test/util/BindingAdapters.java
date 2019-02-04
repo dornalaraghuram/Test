@@ -36,9 +36,6 @@ public class BindingAdapters {
     public static void setImageViewResource(ImageView imageView, String url) {
         GlideApp.with(imageView.getContext())
                 .load(url)
-                .thumbnail(0.5f)
-                .centerInside()
-                .transition(DrawableTransitionOptions.withCrossFade())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)

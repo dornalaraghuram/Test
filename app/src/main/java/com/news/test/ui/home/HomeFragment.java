@@ -13,7 +13,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,6 +28,7 @@ import com.news.test.ui.base.BaseFragment;
 import com.news.test.ui.model.FactsData;
 import com.news.test.ui.model.RowData;
 import com.news.test.ui.navigator.AppNavigator;
+import com.news.test.util.NetworkUtils;
 
 import java.util.List;
 
@@ -64,8 +64,6 @@ public class HomeFragment extends BaseFragment {
 //        setRetainInstance(true);
     }
 
-
-
     @Override
     protected View inflateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, getFragmentLayoutId(), container, false);
@@ -76,7 +74,7 @@ public class HomeFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(savedInstanceState == null) {
-            requestApiData();
+            initData();
         }
         initViews();
         subscribeLiveData();
@@ -95,23 +93,37 @@ public class HomeFragment extends BaseFragment {
 
         binding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
         binding.refreshLayout.setOnRefreshListener(() -> {
-            binding.refreshLayout.setRefreshing(true);
-            getViewModel().loadFactsData();
+            requestApiData(true);
         });
     }
 
-    private void requestApiData() {
+    private void initData() {
         getViewModel().setAppNavigator(mNavigator);
         getViewModel().setDataSource(mDataSource);
         getViewModel().setRxBus(mRxBus);
-        getViewModel().loadFactsData();
+        requestApiData(false);
     }
+
+
+    private void requestApiData(boolean isFromRefresh) {
+        if(!NetworkUtils.isNetworkAvailable(getContext())) {
+            binding.refreshLayout.setRefreshing(false);
+            mNavigator.showNoNetworkSnackMessage();
+            return;
+        }
+        getViewModel().loadFactsData();
+        if(isFromRefresh) {
+            binding.refreshLayout.setRefreshing(true);
+        } else {
+            mNavigator.showProgressBar();
+        }
+    }
+
 
     @Override
     protected int getFragmentLayoutId() {
         return R.layout.fragment_home;
     }
-
 
     @Override
     protected void handleEvents(Object event) {
@@ -130,6 +142,7 @@ public class HomeFragment extends BaseFragment {
             setTitle(factsData.getTitle());
             mAdapter.updateRowsData(rows);
         }
+        mNavigator.hideProgressBar();
     }
 
     private void updateSwipeToRefreshState() {

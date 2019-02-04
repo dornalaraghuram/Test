@@ -22,8 +22,9 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState == null)
-        getAppNavigator().launchHomeScreen();
+        if(savedInstanceState == null) {
+            getAppNavigator().launchHomeScreen();
+        }
     }
 
 }

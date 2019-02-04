@@ -15,9 +15,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.TextView;
 
 import com.news.test.R;
 import com.news.test.constants.BundleConstants;
@@ -39,6 +42,7 @@ public class AppNavigatorImpl implements AppNavigator {
 
     private final BaseActivity mActivity;
     private final int mContainerId;
+    private Snackbar mSnackBar;
 
     @Inject
     public AppNavigatorImpl(BaseActivity context, @ContainerId int containerId) {
@@ -66,6 +70,40 @@ public class AppNavigatorImpl implements AppNavigator {
             errorMessage = e.getMessage();
         }
         showDialog(errorMessage);
+    }
+
+    @Override
+    public void showProgressBar() {
+        if(mActivity != null) {
+            mActivity.showProgressBar();
+        }
+    }
+
+    @Override
+    public void hideProgressBar() {
+        if(mActivity != null) {
+            mActivity.hideProgressBar();
+        }
+    }
+
+    @Override
+    public void showNoNetworkSnackMessage() {
+        mSnackBar = Snackbar
+                .make(mActivity.findViewById(R.id.main_container), mActivity.getResources().getString(R.string.no_network_msg),
+                        Snackbar.LENGTH_SHORT);
+
+        if(mSnackBar.isShown()) return;
+        View sbView = mSnackBar.getView();
+        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(mActivity.getResources().getColor(R.color.colorAccent));
+        mSnackBar.show();
+    }
+
+    @Override
+    public void dismissSnackMessage() {
+        if(mSnackBar != null && mSnackBar.isShown()) {
+            mSnackBar.dismiss();
+        }
     }
 
     private void showDialog(String message) {
