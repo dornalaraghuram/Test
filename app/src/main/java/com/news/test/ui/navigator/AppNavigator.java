@@ -25,4 +25,6 @@ public interface AppNavigator {
     void showNoNetworkSnackMessage();
 
     void dismissSnackMessage();
+
+    void dismissDialog();
 }

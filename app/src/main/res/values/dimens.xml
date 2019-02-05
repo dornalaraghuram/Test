@@ -11,9 +11,12 @@
     <dimen name="message_right_margin">10dp</dimen>
     <dimen name="corner_radius">5dp</dimen>
     <dimen name="card_margin">8dp</dimen>
-
     <dimen name="empty_margin">0dp</dimen>
 
+    <dimen name="right_arrow_height">10dp</dimen>
+    <dimen name="thumbnail_width">100dp</dimen>
+    <dimen name="thumbnail_height">56dp</dimen>
+    <dimen name="desc_right_margin">16dp</dimen>
 
 
     <!-- Text sizes-->

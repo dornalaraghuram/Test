@@ -7,11 +7,11 @@
  */
 
 ext {
-    supportLibVersion = '27.0.1'
+    supportLibVersion = '27.1.1'
     playServicesVersion = '11.6.2'
-    recyclerVersion = '27.0.1'
-    cardViewVersion = '27.0.1'
-    constraintLayoutVersion = '1.1.0-beta5'
+    recyclerVersion = '27.1.1'
+    cardViewVersion = '27.1.1'
+    constraintLayoutVersion = '1.1.2'
     butterknifeVersion = '8.7.0'
     okHttpVersion = '3.6.0'
     daggerVersion = '2.13'
@@ -19,7 +19,7 @@ ext {
     rxjavaVersion = '2.0.8'
     rxandroidVesion = '2.0.1'
     glideVersion = '4.3.1'
-    lifecycleVersion = '1.0.0'
+    lifecycleVersion = '1.1.1'
     gsonVersion = '2.6.1'
 
     //Packages

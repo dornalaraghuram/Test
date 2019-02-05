@@ -43,6 +43,7 @@ public class AppNavigatorImpl implements AppNavigator {
     private final BaseActivity mActivity;
     private final int mContainerId;
     private Snackbar mSnackBar;
+    private AlertDialog mDialog;
 
     @Inject
     public AppNavigatorImpl(BaseActivity context, @ContainerId int containerId) {
@@ -112,9 +113,18 @@ public class AppNavigatorImpl implements AppNavigator {
     }
 
     private Dialog createDialog(String message) {
-        return new AlertDialog.Builder(mActivity).setTitle(R.string.app_name)
+        mDialog = new AlertDialog.Builder(mActivity).setTitle(R.string.app_name)
                 .setMessage(message)
                 .setPositiveButton(R.string.ok, null).create();
+        return mDialog;
+    }
+
+
+    @Override
+    public void dismissDialog() {
+        if(mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
     }
 
     private void startActivity(@NonNull Class<? extends Activity> activityClass, Bundle args, Integer requestCode) {

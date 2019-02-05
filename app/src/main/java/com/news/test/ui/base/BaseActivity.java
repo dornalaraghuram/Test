@@ -113,6 +113,9 @@ public abstract class BaseActivity extends AppCompatActivity implements HasSuppo
         if (mUnBinder != null) {
             mUnBinder.unbind();
         }
+        if(mAppNavigator != null) {
+            mAppNavigator.dismissDialog();
+        }
         super.onDestroy();
     }
 
