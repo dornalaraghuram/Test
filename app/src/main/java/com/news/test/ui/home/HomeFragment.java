@@ -106,12 +106,12 @@ public class HomeFragment extends BaseFragment {
 
 
     private void requestApiData(boolean isFromRefresh) {
+        getViewModel().loadFactsData();
         if(!NetworkUtils.isNetworkAvailable(getContext())) {
             binding.refreshLayout.setRefreshing(false);
             mNavigator.showNoNetworkSnackMessage();
             return;
         }
-        getViewModel().loadFactsData();
         if(isFromRefresh) {
             binding.refreshLayout.setRefreshing(true);
         } else {

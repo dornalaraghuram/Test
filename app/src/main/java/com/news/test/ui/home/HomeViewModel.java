@@ -21,11 +21,17 @@ import com.news.test.ui.model.FactsData;
 import com.news.test.ui.navigator.AppNavigator;
 import com.news.test.util.Logger;
 
+import java.util.concurrent.Callable;
+
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableSource;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -35,7 +41,6 @@ public class HomeViewModel extends BaseViewModel {
     private static final String TAG = HomeViewModel.class.getSimpleName();
 
     private MutableLiveData<FactsData> mFactsData = new MutableLiveData<>();
-
 
     @Inject
     public HomeViewModel(@NonNull Application application) {

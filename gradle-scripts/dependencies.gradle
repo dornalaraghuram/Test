@@ -31,6 +31,7 @@ ext {
     okhttpPackage = 'com.squareup.okhttp3'
     retrofitPackage = 'com.squareup.retrofit2'
     glidePackage = 'com.github.bumptech.glide'
+    roomPackage = 'android.arch.persistence.room'
     lifecyclePackage = 'android.arch.lifecycle'
 
     supportDependencies = [
@@ -79,6 +80,12 @@ ext {
     glideDependencies = [
             glide         : buildDependency(glidePackage, 'glide', glideVersion),
             glideProcessor: buildDependency(glidePackage, 'compiler', glideVersion)
+    ]
+
+    RoomDependencies = [
+            room         : buildDependency(roomPackage, 'runtime', lifecycleVersion),
+            roomProcessor: buildDependency(roomPackage, 'compiler', lifecycleVersion),
+            roomRxJava: buildDependency(roomPackage, 'rxjava2', lifecycleVersion)
     ]
 
     lifecycleDependencies = [

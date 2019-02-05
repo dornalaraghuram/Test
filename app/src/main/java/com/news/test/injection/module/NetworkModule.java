@@ -8,10 +8,16 @@
 
 package com.news.test.injection.module;
 
+import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.news.test.constants.DBConstants;
+import com.news.test.db.AppDatabase;
+import com.news.test.db.FactsDao;
+import com.news.test.injection.scope.ApplicationContext;
 import com.news.test.injection.scope.ApplicationScope;
 import com.news.test.network.ApiService;
 
@@ -30,6 +36,23 @@ public class NetworkModule {
     @ApplicationScope
     public ApiService provideApiService(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
+    }
+
+    @ApplicationScope
+    @Provides
+    public AppDatabase provideAppDatabase(Context context) {
+        return Room.databaseBuilder(context,
+                AppDatabase.class, DBConstants.DB_NAME)
+                .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
+                .build();
+    }
+
+
+    @ApplicationScope
+    @Provides
+    public FactsDao providefactsDao(AppDatabase appDatabase) {
+        return appDatabase.factsDao();
     }
 
     @ApplicationScope

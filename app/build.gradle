@@ -106,4 +106,9 @@ dependencies {
     implementation retrofitDependencies.converter_gson
     implementation retrofitDependencies.adapter_rxjava2
 
+    //room
+    implementation RoomDependencies.room
+    implementation RoomDependencies.roomRxJava
+    annotationProcessor RoomDependencies.roomProcessor
+
 }

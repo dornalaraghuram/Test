@@ -29,4 +29,12 @@ public class Facts {
     public List<Rows> getRows() {
         return rows;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setRows(List<Rows> rows) {
+        this.rows = rows;
+    }
 }

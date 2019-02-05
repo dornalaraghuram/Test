@@ -70,6 +70,7 @@ public class AppNavigatorImpl implements AppNavigator {
             errorMessage = e.getMessage();
         }
         showDialog(errorMessage);
+        hideProgressBar();
     }
 
     @Override
