@@ -59,19 +59,8 @@ public abstract class BaseActivity extends AppCompatActivity implements HasSuppo
         setContentView(getLayoutId());
 
         mUnBinder = ButterKnife.bind(this);
-
-        readFromBundleData(getIntent());
-
-        initViews();
     }
 
-    protected void readFromBundleData(Intent intent) {
-
-    }
-
-    protected void initViews() {
-
-    }
 
     /**
      * Get the fragment container id

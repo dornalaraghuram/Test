@@ -74,7 +74,7 @@ public class HomeFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(savedInstanceState == null) {
-            initData();
+            initData(false);
         }
         initViews();
         subscribeLiveData();
@@ -93,15 +93,14 @@ public class HomeFragment extends BaseFragment {
 
         binding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
         binding.refreshLayout.setOnRefreshListener(() -> {
-            requestApiData(true);
+            initData(true);
         });
     }
 
-    private void initData() {
+    private void initData(boolean isRefresh) {
         getViewModel().setAppNavigator(mNavigator);
         getViewModel().setDataSource(mDataSource);
-        getViewModel().setRxBus(mRxBus);
-        requestApiData(false);
+        requestApiData(isRefresh);
     }
 
 
@@ -131,7 +130,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void subscribeLiveData() {
-//        getViewModel().clearFactsData();
         getViewModel().getFactsData().observe(this, this::updateUI);
     }
 

@@ -68,18 +68,10 @@ public class Repository implements DataSource {
 
     @Override
     public Completable insertFactsIntoDb(Facts facts) {
-        Logger.i(TAG, "insertion db outside "+facts.getTitle());
         return Completable.fromAction(() -> {
             ModelConverter<Facts, FactsEntity> converter = new FactsToEntity();
-            Logger.i(TAG, "insertion "+facts.getTitle());
             FactsEntity factsEntity = converter.transform(facts);
             mAppDatabase.factsDao().insert(factsEntity);
-        })
-                .doOnError(new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) throws Exception {
-                Logger.i(TAG, "insertion error "+throwable.getMessage());
-            }
         });
     }
 

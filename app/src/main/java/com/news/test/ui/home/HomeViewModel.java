@@ -49,7 +49,7 @@ public class HomeViewModel extends BaseViewModel {
 
     public void loadFactsData() {
         getDisposable().add(getDataSource().getFacts()
-                .flatMap((Function<Facts, ObservableSource<FactsData>>) facts -> Observable.just(new FactsData(facts)))
+                .flatMap( facts -> Observable.just(new FactsData(facts)))
                 .firstOrError()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

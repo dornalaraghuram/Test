@@ -51,12 +51,6 @@ public class AppNavigatorImpl implements AppNavigator {
         mContainerId = containerId;
     }
 
-
-    @Override
-    public void loadFragment(int containerId, Fragment fragment) {
-        replaceFragment(containerId, fragment);
-    }
-
     @Override
     public void launchHomeScreen() {
         replaceFragment(mContainerId, HomeFragment.getInstance());
@@ -127,23 +121,7 @@ public class AppNavigatorImpl implements AppNavigator {
         }
     }
 
-    private void startActivity(@NonNull Class<? extends Activity> activityClass, Bundle args, Integer requestCode) {
-        Intent intent = new Intent();
-        intent.putExtra(BundleConstants.EXTRA_ARG, args);
-        if (requestCode != null) {
-            mActivity.startActivityForResult(intent, requestCode);
-        } else {
-            mActivity.startActivity(intent);
-        }
-    }
 
-    private void addFragmentAndAddToBackStack(@IdRes int containerId, @NonNull Fragment fragment, String backStackTag) {
-        addFragmentInternal(mActivity.getSupportFragmentManager(), containerId, fragment, null, null, true, backStackTag);
-    }
-
-    private void addFragmentAndAddToBackStack(@IdRes int containerId, @NonNull Fragment fragment) {
-        addFragmentInternal(mActivity.getSupportFragmentManager(), containerId, fragment, null, null, true, null);
-    }
 
     private final void replaceFragment(@IdRes int containerId, Fragment fragment) {
         replaceFragmentInternal(mActivity.getSupportFragmentManager(), containerId, fragment, null, null, false, null);
@@ -164,17 +142,5 @@ public class AppNavigatorImpl implements AppNavigator {
         }
     }
 
-    private final void addFragmentInternal(FragmentManager fm, @IdRes int containerId, Fragment fragment, String fragmentTag, Bundle args, boolean addToBackstack, String backstackTag) {
-        if (mActivity.isFinishing()) return;
-        if (args != null) {
-            fragment.setArguments(args);
-        }
-        FragmentTransaction ft = fm.beginTransaction().add(containerId, fragment, fragmentTag);
-        if (addToBackstack) {
-            ft.addToBackStack(backstackTag).commitAllowingStateLoss();
-            fm.executePendingTransactions();
-        } else {
-            ft.commitAllowingStateLoss();
-        }
-    }
+
 }

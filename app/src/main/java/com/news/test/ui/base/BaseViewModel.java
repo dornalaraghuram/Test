@@ -27,7 +27,6 @@ public class BaseViewModel extends AndroidViewModel {
 
     private final CompositeDisposable mDisposable;
     protected AppNavigator mNavigator;
-    protected RxBus mRxBus;
     protected DataSource mDataSource;
 
     public BaseViewModel(@NonNull Application application) {
@@ -41,14 +40,6 @@ public class BaseViewModel extends AndroidViewModel {
      */
     protected AppNavigator getNavigator() {
         return mNavigator;
-    }
-
-    protected RxBus getRxBus() {
-        return mRxBus;
-    }
-
-    public void setRxBus(RxBus rxBus) {
-        mRxBus = rxBus;
     }
 
     public void setAppNavigator(AppNavigator navigator) {

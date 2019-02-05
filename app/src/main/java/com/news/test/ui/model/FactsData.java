@@ -49,4 +49,8 @@ public class FactsData {
     public String getTitle() {
         return title;
     }
+
+    public void setTitle(String mesg) {
+        this.title = mesg;
+    }
 }
