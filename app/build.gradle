@@ -26,6 +26,17 @@ android {
         unitTests.returnDefaultValues = true
     }
 
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            String name = "Test.apk"
+            if (variant.buildType.name == 'debug') {
+                name = "Test ${variant.buildType.name.capitalize()}.apk"
+            }
+            output.outputFileName = new File("./../../../../../Build_" + versionCode + "/" +
+                    variant.name + "/", name)
+        }
+    }
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
