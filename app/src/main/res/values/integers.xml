@@ -10,7 +10,4 @@
 <resources>
 
 
-    <!-- Recycler Types -->
-    <integer name="rv_type_home">0</integer>
-
 </resources>

@@ -121,8 +121,6 @@ public class AppNavigatorImpl implements AppNavigator {
         }
     }
 
-
-
     private final void replaceFragment(@IdRes int containerId, Fragment fragment) {
         replaceFragmentInternal(mActivity.getSupportFragmentManager(), containerId, fragment, null, null, false, null);
     }

@@ -41,7 +41,6 @@ ext {
             recyclerview     : buildDependency(supportPackage, 'recyclerview-v7', recyclerVersion),
             cardview         : buildDependency(supportPackage, 'cardview-v7', cardViewVersion),
             constraint_layout: buildDependency(constraintLayoutPackage, 'constraint-layout', constraintLayoutVersion),
-            mediarouter      : buildDependency(supportPackage, 'mediarouter-v7', supportLibVersion)
     ]
 
 
