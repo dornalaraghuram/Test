@@ -46,7 +46,7 @@ import static org.mockito.Mockito.when;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ExampleUnitTest {
+public class FactsDataTest {
 
     @Mock
     AppNavigator mAppNavigator;

@@ -29,7 +29,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class PullToRefreshLaunchScreenTest {
 
     @Rule
     public ActivityTestRule<HomeActivity> mActivityTestRule = new ActivityTestRule<>(HomeActivity.class);

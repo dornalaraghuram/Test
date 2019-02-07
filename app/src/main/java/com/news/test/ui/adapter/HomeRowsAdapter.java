@@ -46,9 +46,6 @@ public class HomeRowsAdapter extends RecyclerView.Adapter<HomeRowsAdapter.Holder
 
 
     public void updateRowsData(List<RowData> rowsData) {
-//        if(mRowsData != null) {
-//            mRowsData.clear();
-//        }
         this.mRowsData = rowsData;
         notifyDataSetChanged();
     }
@@ -72,7 +69,6 @@ public class HomeRowsAdapter extends RecyclerView.Adapter<HomeRowsAdapter.Holder
             super(binding.getRoot());
             this.binding = binding;
         }
-
 
         public void bind(int position) {
             binding.setData(mRowsData.get(position));

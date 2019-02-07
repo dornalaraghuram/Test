@@ -8,13 +8,10 @@
 
 package com.news.test.ui.navigator;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,7 +20,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.news.test.R;
-import com.news.test.constants.BundleConstants;
 import com.news.test.injection.scope.ActivityScope;
 import com.news.test.injection.scope.ContainerId;
 import com.news.test.network.ErrorHandler;

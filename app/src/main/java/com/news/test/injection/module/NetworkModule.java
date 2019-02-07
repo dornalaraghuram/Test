@@ -91,7 +91,7 @@ public class NetworkModule {
     @Provides
     @ApplicationScope
     public HttpLoggingInterceptor provideHttpLoggingInterceptor() {
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(message -> Log.d("TAG","Network message "+message));
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(message -> Log.d("TAG","Network message logs "+message));
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return httpLoggingInterceptor;
     }

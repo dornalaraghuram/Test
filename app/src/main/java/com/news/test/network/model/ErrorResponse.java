@@ -17,7 +17,6 @@ public class ErrorResponse extends Throwable {
     //TODO Model class which can have status code, error messages etc.
     private int statusCode;
 
-
     public int getStatusCode() {
         return statusCode;
     }
