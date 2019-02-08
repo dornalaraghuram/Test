@@ -24,7 +24,7 @@ public class FactsData {
     private String title;
 
     public FactsData(Facts facts) {
-       init(facts);
+        init(facts);
     }
 
     private void init(Facts facts) {

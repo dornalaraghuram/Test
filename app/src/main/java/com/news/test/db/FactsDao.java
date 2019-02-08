@@ -26,9 +26,6 @@ public interface FactsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(FactsEntity entry);
 
-    @Delete
-    void delete(FactsEntity entry);
-
 
     @Query("SELECT * FROM " + DBConstants.TBL_FACTS)
     Single<List<FactsEntity>> getAll();

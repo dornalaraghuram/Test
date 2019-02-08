@@ -81,8 +81,4 @@ public class HomeViewModel extends BaseViewModel {
         mFactsData.setValue(facts);
     }
 
-    public void clearFactsData() {
-        mFactsData.setValue(null);
-    }
-
 }

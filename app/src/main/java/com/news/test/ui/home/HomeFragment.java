@@ -61,7 +61,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     public HomeFragment() {
-//        setRetainInstance(true);
     }
 
     @Override
