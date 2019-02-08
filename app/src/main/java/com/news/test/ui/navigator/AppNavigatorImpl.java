@@ -84,10 +84,11 @@ public class AppNavigatorImpl implements AppNavigator {
 
     @Override
     public void showNoNetworkSnackMessage() {
-        mSnackBar = Snackbar
-                .make(mActivity.findViewById(R.id.main_container), mActivity.getResources().getString(R.string.no_network_msg),
-                        Snackbar.LENGTH_SHORT);
-
+        if(mSnackBar == null) {
+            mSnackBar = Snackbar
+                    .make(mActivity.findViewById(R.id.main_container), mActivity.getResources().getString(R.string.no_network_msg),
+                            Snackbar.LENGTH_SHORT);
+        }
         if(mSnackBar.isShown()) return;
         View sbView = mSnackBar.getView();
         TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);

@@ -14,6 +14,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 
+import com.news.test.constants.NetworkConstants;
+import com.news.test.service.NetworkSchedulerService;
 import com.news.test.util.NetworkUtils;
 
 /**
@@ -23,25 +25,19 @@ public class NetworkStatusReceiver extends BroadcastReceiver {
 
     private ConnectionCallback mCallback;
 
-    public interface ConnectionCallback {
-        void onConnected();
+    public NetworkStatusReceiver(ConnectionCallback callback) {
+        mCallback = callback;
+    }
 
-        void onDisConnected();
+    public interface ConnectionCallback {
+        void onConnectionChanged(boolean isConnected);
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getExtras() != null) {
-            boolean hasNetwork = !intent.getExtras().getBoolean(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-            if (NetworkUtils.isNetworkAvailable(context) && hasNetwork) {
-                mCallback.onConnected();
-            } else {
-                mCallback.onDisConnected();
-            }
+        if (intent != null && intent.getAction() != null && intent.getAction().equals(NetworkConstants.CONNECTIVITY_ACTION)) {
+            mCallback.onConnectionChanged(NetworkUtils.isNetworkAvailable(context));
         }
     }
 
-    public void setConnectionCallback(ConnectionCallback callback) {
-        mCallback = callback;
-    }
 }

@@ -49,8 +49,6 @@ public abstract class BaseActivity extends AppCompatActivity implements HasSuppo
     @BindView(R.id.progress_bar)
     View mProgressBar;
 
-    private NetworkStatusReceiver mNetworkStatusReceiver;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,39 +105,6 @@ public abstract class BaseActivity extends AppCompatActivity implements HasSuppo
         }
         super.onDestroy();
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        registerNetworkStatusReceiver();
-    }
-
-    private void registerNetworkStatusReceiver(){
-        mNetworkStatusReceiver = new NetworkStatusReceiver();
-        mNetworkStatusReceiver.setConnectionCallback(new NetworkStatusReceiver.ConnectionCallback() {
-            @Override
-            public void onConnected() {
-                getAppNavigator().dismissSnackMessage();
-            }
-
-            @Override
-            public void onDisConnected() {
-                getAppNavigator().showNoNetworkSnackMessage();
-            }
-        });
-        registerReceiver(mNetworkStatusReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-    }
-
-    private void unRegisterNetworkStatusReceiver(){
-        unregisterReceiver(mNetworkStatusReceiver);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unRegisterNetworkStatusReceiver();
-    }
-
 
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
