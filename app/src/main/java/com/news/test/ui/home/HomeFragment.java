@@ -28,6 +28,7 @@ import com.news.test.ui.base.BaseFragment;
 import com.news.test.ui.model.FactsData;
 import com.news.test.ui.model.RowData;
 import com.news.test.ui.navigator.AppNavigator;
+import com.news.test.util.Config;
 import com.news.test.util.NetworkUtils;
 
 import java.util.List;
@@ -104,7 +105,7 @@ public class HomeFragment extends BaseFragment {
 
 
     private void requestApiData(boolean isFromRefresh) {
-        getViewModel().loadFactsData();
+        getViewModel().loadFactsData(Config.URL_FACTS);
         if(!NetworkUtils.isNetworkAvailable(getContext())) {
             binding.refreshLayout.setRefreshing(false);
             mNavigator.showNoNetworkSnackMessage();

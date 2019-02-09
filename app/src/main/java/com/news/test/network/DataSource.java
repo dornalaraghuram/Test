@@ -16,9 +16,9 @@ import io.reactivex.Observable;
 
 public interface DataSource {
 
-    Observable<Facts> getFactsFromApi();
+    Observable<Facts> getFactsFromApi(String url);
 
-    Observable<Facts> getFacts();
+    Observable<Facts> getFacts(String url);
 
     Observable<Facts> getFactsFromDb();
 

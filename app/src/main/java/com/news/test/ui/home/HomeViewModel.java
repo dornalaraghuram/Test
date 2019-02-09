@@ -12,6 +12,7 @@ import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.news.test.network.DataSource;
 import com.news.test.network.model.Facts;
@@ -32,6 +33,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -47,9 +49,22 @@ public class HomeViewModel extends BaseViewModel {
         super(application);
     }
 
-    public void loadFactsData() {
-        getDisposable().add(getDataSource().getFacts()
-                .flatMap( facts -> Observable.just(new FactsData(facts)))
+    public void loadFactsData(String url) {
+        getDisposable().add(getDataSource().getFacts(url)
+                .doOnNext(new Consumer<Facts>() {
+                    @Override
+                    public void accept(Facts facts) throws Exception {
+                        Logger.i(TAG, "got the response "+facts);
+                    }
+                })
+                .flatMap(new Function<Facts, ObservableSource<FactsData>>() {
+                    @Override
+                    public ObservableSource<FactsData> apply(Facts facts) throws Exception {
+                        FactsData factsData = new FactsData(facts);
+                        Logger.i(TAG, "flat map "+facts);
+                        return Observable.just(factsData);
+                    }
+                })
                 .firstOrError()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

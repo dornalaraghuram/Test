@@ -13,5 +13,5 @@ package com.news.test.util;
  */
 public class Config {
 
-    public static final String URL_FACTS = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
+    public static String URL_FACTS = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
 }

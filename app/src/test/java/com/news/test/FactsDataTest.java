@@ -16,6 +16,7 @@ import com.news.test.network.model.Facts;
 import com.news.test.ui.home.HomeViewModel;
 import com.news.test.ui.model.FactsData;
 import com.news.test.ui.navigator.AppNavigator;
+import com.news.test.util.Config;
 
 import org.junit.After;
 import org.junit.Before;
@@ -94,9 +95,9 @@ public class FactsDataTest {
 
         doReturn(Observable.just(factsData))
                 .when(mDataSource)
-                .getFacts();
+                .getFacts(Config.URL_FACTS);
 
-        mHomeViewModel.loadFactsData();
+        mHomeViewModel.loadFactsData(Config.URL_FACTS);
         mTestScheduler.triggerActions();
 
         verify(factsData).setTitle("About Canada");

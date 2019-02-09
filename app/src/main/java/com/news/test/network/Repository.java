@@ -44,15 +44,15 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Observable<Facts> getFactsFromApi() {
-        return mApiService.getFacts(Config.URL_FACTS)
+    public Observable<Facts> getFactsFromApi(String url) {
+        return mApiService.getFacts(url)
                 .flatMap(facts -> insertFactsIntoDb(facts)
                         .andThen(Observable.fromCallable(() -> facts)));
     }
 
     @Override
-    public Observable<Facts> getFacts() {
-        return getFactsFromDb().concatWith(getFactsFromApi());
+    public Observable<Facts> getFacts(String url) {
+        return url.equalsIgnoreCase(Config.URL_FACTS) ? getFactsFromDb().concatWith(getFactsFromApi(url)) :getFactsFromApi(url);
     }
 
     @Override
