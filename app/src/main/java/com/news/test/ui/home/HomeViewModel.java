@@ -10,30 +10,20 @@ package com.news.test.ui.home;
 
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
-import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.news.test.network.DataSource;
 import com.news.test.network.model.Facts;
-import com.news.test.rxbus.RxBus;
 import com.news.test.ui.base.BaseViewModel;
 import com.news.test.ui.model.FactsData;
-import com.news.test.ui.navigator.AppNavigator;
+import com.news.test.util.Config;
 import com.news.test.util.Logger;
-
-import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
-import io.reactivex.Completable;
-import io.reactivex.CompletableSource;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
-import io.reactivex.Single;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -44,30 +34,19 @@ public class HomeViewModel extends BaseViewModel {
 
     private MutableLiveData<FactsData> mFactsData = new MutableLiveData<>();
 
+    private MutableLiveData<String> errorMessage = new MutableLiveData<>();
+
     @Inject
     public HomeViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public void loadFactsData(String url) {
+    public void loadFactsData(String url, Scheduler scheduler) {
         getDisposable().add(getDataSource().getFacts(url)
-                .doOnNext(new Consumer<Facts>() {
-                    @Override
-                    public void accept(Facts facts) throws Exception {
-                        Logger.i(TAG, "got the response "+facts);
-                    }
-                })
-                .flatMap(new Function<Facts, ObservableSource<FactsData>>() {
-                    @Override
-                    public ObservableSource<FactsData> apply(Facts facts) throws Exception {
-                        FactsData factsData = new FactsData(facts);
-                        Logger.i(TAG, "flat map "+facts);
-                        return Observable.just(factsData);
-                    }
-                })
+                .flatMap((Function<Facts, ObservableSource<FactsData>>) facts -> Observable.just(new FactsData(facts)))
                 .firstOrError()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(url.equals(Config.URL_FACTS_TEST) ? scheduler : Schedulers.io())
+                .observeOn(url.equals(Config.URL_FACTS_TEST) ? scheduler : AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<FactsData>() {
 
                     @Override
@@ -81,6 +60,7 @@ public class HomeViewModel extends BaseViewModel {
                     @Override
                     public void onError(Throwable e) {
                         Logger.i(TAG, "onfailure "+e.getMessage());
+                        setErrorMessage(e.getMessage());
                         getNavigator().showErrorResponseDialog(e);
                     }
 
@@ -96,4 +76,11 @@ public class HomeViewModel extends BaseViewModel {
         mFactsData.setValue(facts);
     }
 
+    public MutableLiveData<String> getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage.setValue(errorMessage);
+    }
 }

@@ -19,7 +19,7 @@ import java.io.IOException;
 public class BaseTest {
 
     private MockWebServer mockServer;
-    public static String URL_FACTS;
+    public static String URL_FACTS_TEST;
     private RestServiceTestHelper helper;
 
     @Before
@@ -52,7 +52,7 @@ public class BaseTest {
         }
         helper = new RestServiceTestHelper();
 
-        URL_FACTS = mockServer.url("/").toString();
+        URL_FACTS_TEST = mockServer.url("/").toString();
     }
 
 

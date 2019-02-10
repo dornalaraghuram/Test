@@ -40,4 +40,16 @@ public class Rows {
     public boolean isValid() {
         return !TextUtils.isEmpty(title) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(imageHref);
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setImageHref(String imageHref) {
+        this.imageHref = imageHref;
+    }
 }

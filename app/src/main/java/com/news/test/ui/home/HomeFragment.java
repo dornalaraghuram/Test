@@ -105,7 +105,7 @@ public class HomeFragment extends BaseFragment {
 
 
     private void requestApiData(boolean isFromRefresh) {
-        getViewModel().loadFactsData(Config.URL_FACTS);
+        getViewModel().loadFactsData(Config.URL_FACTS, null);
         if(!NetworkUtils.isNetworkAvailable(getContext())) {
             binding.refreshLayout.setRefreshing(false);
             mNavigator.showNoNetworkSnackMessage();

@@ -44,7 +44,7 @@ public class HomeFragmentTest extends BaseTest {
             e.printStackTrace();
         }
 
-        viewModel.loadFactsData(URL_FACTS);
+        viewModel.loadFactsData(URL_FACTS_TEST, null);
 
         try {
             Thread.sleep(5000);
@@ -62,7 +62,7 @@ public class HomeFragmentTest extends BaseTest {
             e.printStackTrace();
         }
 
-        viewModel.loadFactsData(URL_FACTS);
+        viewModel.loadFactsData(URL_FACTS_TEST, null);
 
         try {
             Thread.sleep(5000);
