@@ -38,7 +38,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.schedulers.TestScheduler;
-import io.reactivex.subscribers.TestSubscriber;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
@@ -67,7 +66,6 @@ public class FactsDataTest {
 
     private HomeViewModel mHomeViewModel;
     private TestScheduler mTestScheduler;
-    private TestSubscriber<FactsData> mTestSubscriber;
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -82,7 +80,6 @@ public class FactsDataTest {
         mHomeViewModel.setAppNavigator(mAppNavigator);
         mHomeViewModel.setDataSource(mDataSource);
         mockedFactsData = getMockedFactsData();
-        mTestSubscriber = TestSubscriber.create();
     }
 
     @BeforeClass
